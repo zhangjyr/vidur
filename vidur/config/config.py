@@ -46,8 +46,9 @@ class BaseRequestLengthGeneratorConfig(BasePolyConfig):
 
 @dataclass
 class TraceRequestIntervalGeneratorConfig(BaseRequestIntervalGeneratorConfig):
+    path = os.path.dirname(__file__)
     trace_file: str = field(
-        default="data/processed_traces/AzureFunctionsInvocationTraceForTwoWeeksJan2021Processed.csv",
+        default=path + "/../../data/processed_traces/AzureFunctionsInvocationTraceForTwoWeeksJan2021Processed.csv",
         metadata={"help": "Path to the trace request interval generator file."},
     )
     start_time: str = field(
@@ -109,8 +110,9 @@ class StaticRequestIntervalGeneratorConfig(BaseRequestIntervalGeneratorConfig):
 
 @dataclass
 class TraceRequestLengthGeneratorConfig(BaseRequestLengthGeneratorConfig):
+    path = os.path.dirname(__file__)
     trace_file: str = field(
-        default="data/processed_traces/sharegpt_8k_filtered_stats_llama2_tokenizer.csv",
+        default=path + "/../../data/processed_traces/sharegpt_8k_filtered_stats_llama2_tokenizer.csv",
         metadata={"help": "Path to the trace request length generator file."},
     )
     prefill_scale_factor: float = field(
@@ -226,8 +228,9 @@ class SyntheticRequestGeneratorConfig(BaseRequestGeneratorConfig):
 
 @dataclass
 class TraceRequestGeneratorConfig(BaseRequestGeneratorConfig):
+    path = os.path.dirname(__file__)
     trace_file: str = field(
-        default="data/processed_traces/splitwise_conv.csv",
+        default=path + "/../../data/processed_traces/splitwise_conv.csv",
         metadata={"help": "Path to the trace request generator file."},
     )
     prefill_scale_factor: float = field(
@@ -492,24 +495,25 @@ class LORGlobalSchedulerConfig(BaseGlobalSchedulerConfig):
 
 @dataclass
 class BaseExecutionTimePredictorConfig(BasePolyConfig):
+    path = os.path.dirname(__file__)
     compute_input_file: str = field(
-        default="./data/profiling/compute/{DEVICE}/{MODEL}/mlp.csv",
+        default=path + "/../data/profiling/compute/{DEVICE}/{MODEL}/mlp.csv",
         metadata={"help": "Path to the compute input file."},
     )
     attention_input_file: str = field(
-        default="./data/profiling/compute/{DEVICE}/{MODEL}/attention.csv",
+        default=path + "/../data/profiling/compute/{DEVICE}/{MODEL}/attention.csv",
         metadata={"help": "Path to the attention input file."},
     )
     all_reduce_input_file: str = field(
-        default="./data/profiling/network/{NETWORK_DEVICE}/all_reduce.csv",
+        default=path + "/../data/profiling/network/{NETWORK_DEVICE}/all_reduce.csv",
         metadata={"help": "Path to the all reduce input file."},
     )
     send_recv_input_file: str = field(
-        default="./data/profiling/network/{NETWORK_DEVICE}/send_recv.csv",
+        default=path + "/../data/profiling/network/{NETWORK_DEVICE}/send_recv.csv",
         metadata={"help": "Path to the send recv input file."},
     )
     cpu_overhead_input_file: str = field(
-        default="./data/profiling/cpu_overhead/{NETWORK_DEVICE}/{MODEL}/cpu_overheads.csv",
+        default=path + "/../../data/profiling/cpu_overhead/{NETWORK_DEVICE}/{MODEL}/cpu_overheads.csv",
         metadata={"help": "Path to the cpu overhead input file."},
     )
     k_fold_cv_splits: int = field(
