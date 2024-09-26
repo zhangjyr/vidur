@@ -9,6 +9,6 @@ setup(
     keywords='vidur',
     name='vidur',
     packages=find_packages(include=['vidur', 'vidur.*']),
-    package_data={'': ['data/**/*']}, 
+    package_data={'': ['data']}, 
     version='0.0.1',
 )
