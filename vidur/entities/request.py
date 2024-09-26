@@ -32,12 +32,15 @@ class Request(BaseEntity):
         num_prefill_tokens: int,
         num_decode_tokens: int,
         num_processed_tokens: int = 0,
+        arrived_next: float = 0.0,
     ):
         self._id = Request.generate_id()
         self._arrived_at = arrived_at
         self._num_prefill_tokens = num_prefill_tokens
         self._num_decode_tokens = num_decode_tokens
         self._num_processed_tokens = num_processed_tokens
+        self._arrived_next = arrived_next
+        self.response = None
 
         self._scheduled_at = 0
         self._execution_time = 0
@@ -154,6 +157,10 @@ class Request(BaseEntity):
     @property
     def num_decode_tokens(self) -> int:
         return self._num_decode_tokens
+    
+    @property
+    def arrived_next(self) -> float:
+        return self._arrived_next
 
     @property
     def pd_ratio(self) -> float:

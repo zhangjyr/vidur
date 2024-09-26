@@ -1,7 +1,7 @@
 from typing import List
 
 from vidur.entities import Batch
-from vidur.events import BaseEvent
+from vidur.events import BaseEvent, RequestEndEvent
 from vidur.logger import init_logger
 from vidur.metrics import MetricsStore
 from vidur.scheduler import BaseGlobalScheduler
@@ -31,7 +31,16 @@ class BatchEndEvent(BaseEvent):
             self.time, self._batch, self._replica_id, memory_usage_percent
         )
 
-        return [ReplicaScheduleEvent(self.time, self._replica_id)]
+        if len(self._batch.completed_requests) == 0:
+            return [ReplicaScheduleEvent(self.time, self._replica_id)]
+        
+        # Generate request completion events.
+        ret = [None] * (len(self._batch.completed_requests) + 1)
+        for i, request in enumerate(self._batch.completed_requests):
+            ret[i] = RequestEndEvent(self.time, request)
+        ret[-1] = ReplicaScheduleEvent(self.time, self._replica_id)
+
+        return ret
 
     def to_dict(self):
         return {

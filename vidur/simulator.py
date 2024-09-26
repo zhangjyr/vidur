@@ -79,6 +79,7 @@ class Simulator:
 
         logger.info(f"Simulation ended at: {self._time}s")
 
+
     def _write_output(self) -> None:
         logger.info("Writing output")
 
@@ -94,12 +95,14 @@ class Simulator:
             self._write_chrome_trace()
             logger.info("Chrome event trace written")
 
-    def _add_event(self, event: BaseEvent) -> None:
-        heapq.heappush(self._event_queue, (event._priority_number, event))
+    def _add_event(self, event: BaseEvent, queue=None) -> None:
+        if queue == None:
+            queue = self._event_queue
+        heapq.heappush(queue, (event._priority_number, event))
 
-    def _add_events(self, events: List[BaseEvent]) -> None:
+    def _add_events(self, events: List[BaseEvent], queue=None) -> None:
         for event in events:
-            self._add_event(event)
+            self._add_event(event, queue)
 
     def _init_event_queue(self) -> None:
         requests = self._request_generator.generate()
