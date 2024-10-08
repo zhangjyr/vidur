@@ -47,4 +47,6 @@ class BatchEndEvent(BaseEvent):
             "time": self.time,
             "event_type": self.event_type,
             "batch_id": self._batch.id,
+            "requests": len(self._batch.requests),
+            "completed": len(self._batch.completed_requests)
         }

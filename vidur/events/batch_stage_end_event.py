@@ -80,6 +80,7 @@ class BatchStageEndEvent(BaseEvent):
             "batch_id": self._batch.id,
             "batch_stage_id": self._batch_stage.id,
             "is_last_stage": self._is_last_stage,
+            "requests": len(self._batch_stage.requests),
         }
 
     def to_chrome_trace(self) -> dict:

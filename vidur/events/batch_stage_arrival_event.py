@@ -42,4 +42,5 @@ class BatchStageArrivalEvent(BaseEvent):
             "replica_id": self._replica_id,
             "stage_id": self._stage_id,
             "batch_id": self._batch.id,
+            "requests": len(self._batch.requests)
         }

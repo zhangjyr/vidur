@@ -65,4 +65,5 @@ class ReplicaStageScheduleEvent(BaseEvent):
             "batch_id": self._batch.id if self._batch else None,
             "batch_stage_id": self._batch_stage.id if self._batch_stage else None,
             "is_last_stage": self._is_last_stage,
+            "requests": len(self._batch_stage.requests) if self._batch_stage else 0,
         }
